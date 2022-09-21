@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{#  {% block title %}Bienvenue{% endblock %}#}
+
+{% block body %}
+
+    <p>Bienvenue dans le cours symfony</p>
+
+    <ul>
+        {% for prenom in prenoms %}
+        <li>{{ prenom }}</li>
+        {% endfor %}
+
+    </ul>
+
+{% endblock %}

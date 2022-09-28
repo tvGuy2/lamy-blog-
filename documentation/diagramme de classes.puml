@@ -1,6 +1,7 @@
 @startuml
 
 
+
 class Article {
 - id : int
 - titre : string
@@ -15,8 +16,23 @@ class Categorie {
 - slug : string
 }
 
-Article "0..*" -- "0..1" Categorie
+class Utilisateur {
+- id : int
+- prenom : string
+- nom : string
+- pseudo : string
+}
 
+class Commentaire {
+- id : int
+- contenu : text
+- createAt : datetime
+}
+
+
+Article "0..*" -- "0..1" Categorie
+Article "1..1" -- "0..*" Commentaire
+Utilisateur "0..1" -- "0..*" Commentaire
 
 
 @enduml

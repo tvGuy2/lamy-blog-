@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategorieController!{% endblock %}
+
+{% block body %}
+    <h1>Catégories : </h1>
+    <ul>
+        {% for categorie in categories %}
+            <li>{{ categorie.titre }}  ({{ categorie.articles.count }} articles)
+                <a class="btn btn-primary" href="{{ path('app_categorie_slug',{slug : categorie.slug}) }}" role="button">voir</a></li>
+        {% endfor %}
+
+    </ul>
+{% endblock %}

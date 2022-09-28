@@ -39,23 +39,23 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/article/{id}', name: 'app_article_id')]
+    #[Route('/article/{slug}', name: 'app_article_slug')]
 
     // A l'appel de la méthode symfony va créer un objet de la classe ArticleRepossitory
         // et le passer en paramètre de la méthode
         // Mécanisme : INJECTION DE DEPENDANCES
-    public function getArticle($id): Response
+    public function getArticle($slug): Response
     {
 
         // Récupérer les infos dans la base de données
         // Le controlleur fait appel au Modèle(une classe du modèle)
         // Afin de récupérer la liste des articles
         // $repository = new ArticleRepository();
-        $article = $this->aricleRepository->find($id);
+        $article = $this->aricleRepository->findOneBy(["slug" => $slug] );
 
 
         return $this->render('article/article.html.twig',[
-            "article" => $article,
+            "article" => $article
         ]);
     }
 }

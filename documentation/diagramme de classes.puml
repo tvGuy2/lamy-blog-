@@ -1,0 +1,22 @@
+@startuml
+
+
+class Article {
+- id : int
+- titre : string
+- contenu : text
+- createAt : datetime
+- slug : string
+}
+
+class Categorie {
+- id : int
+- titre  :string
+- slug : string
+}
+
+Article "0..*" -- "0..1" Categorie
+
+
+
+@enduml

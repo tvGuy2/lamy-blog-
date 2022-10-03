@@ -14,4 +14,15 @@
         </div>
     </div>
 
+    <h3>Commentaire(s)</h3>
+    <div>
+        {% for commentaire in commentaires %}
+            <li>{{ commentaire.contenu }}</li>
+        {% endfor %}
+    </div>
+
+
+
+
+
 {% endblock %}

@@ -3,26 +3,34 @@
 {% block title %}Liste des Articles{% endblock %}
 
 {% block body %}
-    <h1>Détail article</h1>
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">{{ article.titre }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.createdAt | date("d/m/Y")  }}</h6>
-            <h6 class="card-subtitle mb-2 text-muted "><a class="btn btn-secondary" href="{{ path("app_categorie_slug" , {slug : article.categorie.slug })}}">{{ article.categorie.titre }}</a></h6>
-            <p class="card-text">{{ article.contenu }} </p>
-
-        </div>
+    <h1 class="mt-3 mb-4">Détail article</h1>
+    <div class="  mb-5">
+        <h5 class=""> <b>{{ article.titre }} </b> {{ article.createdAt | date("d/m/Y")  }}</h5>
+        <h6 class=" "><a class="btn btn-secondary" href="{{ path("app_categorie_slug" , {slug : article.categorie.slug })}}">{{ article.categorie.titre }}</a></h6>
+        <p class="">{{ article.contenu }} </p>
     </div>
 
-    <h3>Commentaire(s)</h3>
-    <div>
+    {% if article.commentaires.count >1 %}
+    <h3 class="mb-3">{{ article.commentaires.count}} Commentaires</h3>
+
+    {% elseif article.commentaires.count == 0 %}
+        <h3 class="mb-3">Aucun commentaires</h3>
+
+    {% else %}
+    <h3 class="mb-3">{{ article.commentaires.count}} Commentaire</h3>
+    {% endif %}
+
+
+    <div class="">
         {% for commentaire in commentaires %}
-            <li>{{ commentaire.contenu }}</li>
+            <ul>
+            {%if commentaire.utilisateurId %}
+            <li><h5><b>{{ commentaire.utilisateurId.pseudo }} </b>{{ commentaire.createAt | date("d/m/Y") }}</h5></li>
+            {%else %}
+            <li><h5> <b>Anonyme {{ commentaire.createAt | date("d/m/Y") }}</b></h5></li>
+            {% endif %}
+            <p class="mb-3">{{ commentaire.contenu }}</p>
+            </ul>
         {% endfor %}
     </div>
-
-
-
-
-
 {% endblock %}

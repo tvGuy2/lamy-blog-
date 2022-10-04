@@ -6,8 +6,6 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentaireRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,15 +15,17 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ArticleController extends AbstractController
 {
-    private ArticleRepository $aricleRepository;
+    private ArticleRepository $articleRepository;
     private CommentaireRepository $commentaireRepository;
+
 
     //Demander à symfony d'injecter une instance de ArticleRepository
     // à la création du controlleur (instance de ArticleControlleur
-    public function __construct(ArticleRepository $aricleRepository , CommentaireRepository $commentaireRepository)
+    public function __construct(ArticleRepository $articleRepository , CommentaireRepository $commentaireRepository)
     {
-        $this->aricleRepository = $aricleRepository;
-        $this->commentaireRepository=$commentaireRepository;
+        $this->articleRepository = $articleRepository;
+        $this->commentaireRepository = $commentaireRepository;
+
     }
 
 
@@ -46,7 +46,7 @@ class ArticleController extends AbstractController
 
 
         $articles = $paginator->paginate(
-            $this->aricleRepository->findBy([],["createdAt" => "DESC",]), /* query NOT result */
+            $this->articleRepository->findBy([],["createdAt" => "DESC",]), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
@@ -59,7 +59,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/article/{slug}', name: 'app_article_slug')]
+    #[Route('/articles/{slug}', name: 'app_article_slug')]
 
     // A l'appel de la méthode symfony va créer un objet de la classe ArticleRepossitory
         // et le passer en paramètre de la méthode
@@ -74,8 +74,9 @@ class ArticleController extends AbstractController
 
 
 
-        $article = $this->aricleRepository->findOneBy(["slug" => $slug] );
-        $commentaires = $this->commentaireRepository->findBy(["article_id" => $this->aricleRepository->findBy(["slug => $slug"])]);
+        $article = $this->articleRepository->findOneBy(["slug" => $slug] );
+        $commentaires = $this->commentaireRepository->findBy(["article_id" => $this->articleRepository->findBy(["slug" => $slug])]);
+
 
         return $this->render('article/article.html.twig',[
             "article" => $article,

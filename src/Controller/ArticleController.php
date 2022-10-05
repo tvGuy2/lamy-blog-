@@ -86,18 +86,28 @@ class ArticleController extends AbstractController
 
 
 
-    #[Route('/articles/nouveau', name: 'app_articles_nouveau',priority: 1)]
+    #[Route('/articles/nouveau', name: 'app_articles_nouveau', methods: ['GET' , 'POST'] , priority: 1)]
 
     // A l'appel de la méthode symfony va créer un objet de la classe ArticleRepossitory
         // et le passer en paramètre de la méthode
         // Mécanisme : INJECTION DE DEPENDANCES
-    public function insert(SluggerInterface $slugger): Response
+    public function insert(SluggerInterface $slugger, Request $request): Response
     {
         $article = new Article();
         // Création du formulaire
         $formArticle = $this->createForm(ArticleType::class,$article);
-        // Appel de le vue twig permettant d'afficher le formulaire
 
+        // Reconnaître si le formulaire a été soumis ou pas
+        $formArticle->handleRequest($request);
+        // Est-ce que le formulaire a été soumis
+        if ($formArticle->isSubmitted() && $formArticle->isValid()){
+            $article->setSlug($slugger->slug($article->getTitre())->lower())
+                    ->setCreatedAt(new \Datetime());
+            $this->articleRepository->add($article,true);
+            return $this->redirectToRoute("app_articles");
+        }
+
+        // Appel de le vue twig permettant d'afficher le formulaire
         return $this->renderForm('article/nouveau.html.twig',[
             'formArticle' => $formArticle
             ]

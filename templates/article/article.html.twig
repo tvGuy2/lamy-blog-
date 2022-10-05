@@ -6,7 +6,11 @@
     <h1 class="mt-3 mb-4">Détail article</h1>
     <div class="  mb-5">
         <h5 class=""> <b>{{ article.titre }} </b> {{ article.createdAt | date("d/m/Y")  }}</h5>
+        {% if article.categorie is not null %}
         <h6 class=" "><a class="btn btn-secondary" href="{{ path("app_categorie_slug" , {slug : article.categorie.slug })}}">{{ article.categorie.titre }}</a></h6>
+        {% else %}
+        <h6> Aucune catégorie </h6>
+        {% endif %}
         <p class="">{{ article.contenu }} </p>
     </div>
 
@@ -14,7 +18,7 @@
     <h3 class="mb-3">{{ article.commentaires.count}} Commentaires</h3>
 
     {% elseif article.commentaires.count == 0 %}
-        <h3 class="mb-3">Aucun commentaires</h3>
+        <h3 class="mb-3">Aucun commentaire</h3>
 
     {% else %}
     <h3 class="mb-3">{{ article.commentaires.count}} Commentaire</h3>

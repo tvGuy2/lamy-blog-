@@ -11,7 +11,7 @@
         {% else %}
         <h6> Aucune catégorie </h6>
         {% endif %}
-        <p class="">{{ article.contenu }} </p>
+        <p class="">{{ article.contenu | raw }} </p>
     </div>
 
     {% if article.commentaires.count >1 %}
@@ -24,6 +24,32 @@
     <h3 class="mb-3">{{ article.commentaires.count}} Commentaire</h3>
     {% endif %}
 
+    <h4>Ajout d'un commentaire</h4>
+
+    {{ form_start(formCommentaire) }}
+
+    {{ form_label(formCommentaire.pseudo,"Pseudo utilisateur")}}
+    {{ form_widget(formCommentaire.pseudo, {
+        'attr' : {
+            'placeholder' : "Saisir votre pseudo"
+        },
+    })}}
+
+
+    {{ form_label(formCommentaire.contenu,"Contenu de l'article")}}
+
+    {{ form_widget(formCommentaire.contenu, {
+        'attr' : {
+            'placeholder' : "Veuillez saisir un contenu"
+        },
+    })}}
+
+
+
+
+    <input type="submit" class="btn btn-primary mt-3" value="ajouter">
+
+    {{ form_end(formCommentaire) }}
 
     <div class="">
         {% for commentaire in commentaires %}
@@ -37,4 +63,7 @@
             </ul>
         {% endfor %}
     </div>
+
+
+
 {% endblock %}

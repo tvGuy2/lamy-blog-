@@ -6,8 +6,11 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
+#[UniqueEntity('pseudo', "pseudo déjâ existant")]
 class Utilisateur
 {
     #[ORM\Id]
@@ -15,14 +18,17 @@ class Utilisateur
     #[ORM\Column]
     private ?int $id = null;
 
+
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+
     #[ORM\Column(length: 255)]
     private ?string $pseudo = null;
+
 
     #[ORM\OneToMany(mappedBy: 'utilisateur_id', targetEntity: Commentaire::class)]
     private Collection $commentaires;

@@ -28,6 +28,7 @@ class Article
     #[Assert\Length(min: 5 ,minMessage: "Le titre doit comporter au moins 5 caractères")]
 
 
+
     private ?string $titre = null;
 
 
@@ -45,6 +46,9 @@ class Article
 
     #[ORM\OneToMany(mappedBy: 'article_id', targetEntity: Commentaire::class)]
     private Collection $commentaires;
+
+    #[ORM\Column]
+    private ?bool $isPublie = null;
 
     public function __construct()
     {
@@ -142,6 +146,18 @@ class Article
                 $commentaire->setArticleId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsPublie(): ?bool
+    {
+        return $this->isPublie;
+    }
+
+    public function setIsPublie(bool $isPublie): self
+    {
+        $this->isPublie = $isPublie;
 
         return $this;
     }

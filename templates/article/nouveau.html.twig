@@ -29,6 +29,10 @@
         'help' : "le contenu doit contenir au mois 36 caractères"
     }) }}
     {{ form_row(formArticle.categorie) }}
+    {{ form_row(formArticle.isPublie ,{
+        'label' : "publié l'article"
+        })
+    }}
 
     <input type="submit" class="btn btn-primary mt-3" value="ajouter">
 

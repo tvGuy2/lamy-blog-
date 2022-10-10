@@ -18,7 +18,7 @@ class AccueilController extends AbstractController
         // Le controlleur fait appel au Modèle(une classe du modèle)
         // Afin de récupérer la liste des articles
         // $repository = new ArticleRepository();
-        $articles = $repository->findBy([],["createdAt" => "DESC",],10);
+        $articles = $repository->findBy(["isPublie" => true],["createdAt" => "DESC",],10);
 
 
         return $this->render('accueil/index.html.twig',[

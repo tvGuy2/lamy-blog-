@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Article{% endblock %}
+
+
+{% block body %}
+    <h1>Création d'un article</h1>
+    {{ form_start(formArticle) }}
+    {{ form_row(formArticle.titre, {
+        'label' : 'titre article',
+        'attr' : {
+            'placeholder' : "Veuillez saisir le titre de l'article"
+        },
+        'help' : "le titre doit contenir au moins 5 caractères"
+    }) }}
+
+    {{ form_label(formArticle.contenu,"Contenu de l'article" , {
+        'label_attr' : {
+            'class' : 'text-warning'
+        }
+    })}}
+
+    {{ form_widget(formArticle.contenu, {
+        'attr' : {
+            'placeholder' : "Veuillez saisir un contenu"
+        },
+    })}}
+    {{ form_help(formArticle.contenu , {
+        'help' : "le contenu doit contenir au mois 36 caractères"
+    }) }}
+    {{ form_row(formArticle.categorie) }}
+    {{ form_row(formArticle.isPublie ,{
+        'label' : "publié l'article"
+    })
+    }}
+
+    <input type="submit" class="btn btn-primary mt-3" value="modifier">
+
+    {{ form_end(formArticle) }}
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

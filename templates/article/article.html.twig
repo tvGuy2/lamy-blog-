@@ -12,6 +12,8 @@
         <h6> Aucune catégorie </h6>
         {% endif %}
         <p class="">{{ article.contenu | raw }} </p>
+
+        <h6 class=" "><a class="btn btn-secondary" href="{{ path("app_articles_modifie_slug" , {slug : article.slug })}}">Modifier article</a></h6>
     </div>
 
     {% if article.commentaires.count >1 %}

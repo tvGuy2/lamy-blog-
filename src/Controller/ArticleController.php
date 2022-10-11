@@ -137,4 +137,34 @@ class ArticleController extends AbstractController
     }
 
 
+    #[Route('/articles/modifie:{slug}', name: 'app_articles_modifie_slug', methods: ['GET' , 'POST'] , priority: 1)]
+
+    // A l'appel de la méthode symfony va créer un objet de la classe ArticleRepossitory
+        // et le passer en paramètre de la méthode
+        // Mécanisme : INJECTION DE DEPENDANCES
+    public function update(SluggerInterface $slugger, Request $request,$slug): Response
+    {
+        $article = $this->articleRepository->findOneBy(["slug" => $slug]);
+        // Création du formulaire
+        $formArticle = $this->createForm(ArticleType::class, $article);
+
+        // Reconnaître si le formulaire a été soumis ou pas
+        $formArticle->handleRequest($request);
+        // Est-ce que le formulaire a été soumis
+        if ($formArticle->isSubmitted() && $formArticle->isValid()) {
+            $article->setSlug($slugger->slug($article->getTitre())->lower());
+
+
+            $this->articleRepository->add($article, true);
+            return $this->redirectToRoute("app_articles");
+        }
+
+        // Appel de le vue twig permettant d'afficher le formulaire
+        return $this->renderForm('article/update.html.twig', [
+                'formArticle' => $formArticle,
+                'article' => $article
+            ]
+        );
+    }
+
 }

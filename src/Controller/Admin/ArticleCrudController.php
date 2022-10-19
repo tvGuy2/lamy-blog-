@@ -94,9 +94,6 @@ class ArticleCrudController extends AbstractCrudController
             return $action->setLabel("Détail");
         });
 
-
-
-
         return $actions ;
     }
 

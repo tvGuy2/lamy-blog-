@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use App\Entity\Categorie;
+use App\Entity\Contact;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -39,7 +40,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::section("Article");
         //Créer un sous menu pour les articles
-        yield MenuItem::subMenu("Actions","fas fa-bars")
+        yield MenuItem::subMenu("Article","fas fa-bars")
             ->setSubItems([
                 MenuItem::linkToCrud("Lister articles","fas fa-eye",Article::class)
                     ->setDefaultSort(['createdAt' => 'DESC'])
@@ -62,6 +63,17 @@ class DashboardController extends AbstractDashboardController
 
 
             ]);
+
+
+        yield MenuItem::section("Contact");
+        //Créer un sous menu pour les articles
+        yield MenuItem::subMenu("Contact","fas fa-bars")
+            ->setSubItems([
+                MenuItem::linkToCrud("Lister contact","fas fa-eye",Contact::class)
+                    ->setAction(Crud::PAGE_INDEX),
+            ]);
+
+
         yield MenuItem::linkToUrl("accueil","fa fa-home",$this->generateUrl("app_accueil") );
 
     }

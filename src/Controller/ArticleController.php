@@ -84,7 +84,7 @@ class ArticleController extends AbstractController
                 $commentaire->setCreateAt(new \Datetime())
                     ->setArticleId($this->articleRepository->findOneBy(["slug" => $slug]))
                     ->setUtilisateurId($this->utilisateurRepository->findOneBy(['pseudo' => $formCommentaire->get('pseudo')->addError(new FormError("Pseudo inexistant"))->getData()]));
-
+                $this->commentaireRepository->add($commentaire,true);
             }
             return $this->renderForm('article/article.html.twig', [
                     'formCommentaire' => $formCommentaire,

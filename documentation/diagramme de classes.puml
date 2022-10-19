@@ -37,6 +37,7 @@ class Contact {
 - email : string
 - objet : string
 - contenu : text
+- createAt : datetime
 }
 
 

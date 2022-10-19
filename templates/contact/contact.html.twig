@@ -1,20 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ContactController!{% endblock %}
+{% block title %}Contact{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h4>Envoie d'un email</h4>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {{ form_start(formContact) }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/VALLOTT/Documents/Projets/symfony/symfony-blog/src/Controller/ContactController.php'|file_link(0) }}">src/Controller/ContactController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/VALLOTT/Documents/Projets/symfony/symfony-blog/templates/contact/contact.html.twig'|file_link(0) }}">templates/contact/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {{ form_label(formContact.prenom,"prenom")}}
+    {{ form_widget(formContact.prenom, {
+        'attr' : {
+            'placeholder' : "Saisir votre prenom"
+        },
+    })}}
+
+    {{ form_label(formContact.nom,"nom")}}
+    {{ form_widget(formContact.nom, {
+        'attr' : {
+            'placeholder' : "Saisir votre nom"
+        },
+    })}}
+
+    {{ form_label(formContact.email,"email")}}
+    {{ form_widget(formContact.email, {
+        'attr' : {
+            'placeholder' : "Saisir votre email"
+        },
+    })}}
+
+    {{ form_label(formContact.objet,"objet")}}
+    {{ form_widget(formContact.objet, {
+        'attr' : {
+            'placeholder' : "Saisir l'objet de votre message"
+        },
+    })}}
+
+
+    {{ form_label(formContact.contenu,"Contenu de l'article")}}
+    {{ form_widget(formContact.contenu, {
+        'attr' : {
+            'placeholder' : "Veuillez saisir un contenu"
+        },
+    })}}
+
+
+
+
+    <input type="submit" class="btn btn-primary mt-3" value="ajouter">
+
+    {{ form_end(formContact) }}
+
 {% endblock %}
